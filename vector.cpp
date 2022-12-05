@@ -33,8 +33,7 @@ string newWords(string wordsInput)
     return new_word;
 }
  
-
-int main(int argc, char const *argv[])
+int main()
 {
     string line;
     ifstream input("input.txt");
@@ -71,11 +70,33 @@ int main(int argc, char const *argv[])
         }
     }
 
-    for(int i = 0; i < _kalimat.size()-1; i++)
+    string data_json = "";
+    data_json += "{\n";
+    
+    ofstream output("output2.json");
+
+    for(int i=0; i < _kalimat.size(); i++)
     {
-        cout << " "<< _kalimat[i] << " " << count[i] << endl;
+        if(i < _kalimat.size()-1)
+        {
+            data_json += "\t\"";
+            data_json += _kalimat[i];
+            data_json += "\": ";
+            data_json += to_string(count[i]);
+            data_json += ",\n";
+        }
+        else
+        {
+            data_json += "\t\"";
+            data_json += _kalimat[i];
+            data_json += "\": ";
+            data_json += to_string(count[i]);
+            data_json += "\n";
+        }
     }
 
+    data_json += "}";
+    output << data_json;
     return 0;
 }
 
